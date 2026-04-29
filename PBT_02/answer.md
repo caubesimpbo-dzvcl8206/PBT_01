@@ -72,3 +72,84 @@ Thẻ <figure>: Là một đơn vị nội dung độc lập. Nó bao bọc hìn
     <figcaption>Hình 1: truyện Doraemon phiên bản mới nhất - Tác giả Dale Carnegie</figcaption>
 </figure>
 Nguồn tham khảo: 06_graphics_multimedia.md: Mục Multimedia Elements — <figure> & <figcaption>.
+
+Câu C1:
+-Lỗi 1: Dòng 2 — Input "Tên" thiếu <label for="...">, vi phạm accessibility
+-Lỗi 2: Dòng 4 — Input Email thiếu thuộc tính id để liên kết với nhãn và name để gửi dữ liệu.
+-Lỗi 3: Dòng 6 — Input Password thiếu name, dữ liệu mật khẩu sẽ không được gửi lên server.
+-Lỗi 4: Dòng 7 — Ô nhập lại mật khẩu thiếu name và không có cơ chế so sánh với ô trên
+-Lỗi 5: Dòng 9 — Số điện thoại dùng type="text", không tối ưu bàn phím số cho thiết bị di động.
+-Lỗi 6: Dòng 11 — Thẻ <select> thiếu name và id, đồng thời các <option> thiếu thuộc tính value.
+-Lỗi 7: Dòng 16 — Thẻ <label> bao quanh văn bản nhưng không bao quanh input checkbox và thiếu for, khiến việc click vào nhãn không kích hoạt checkbox.
+-Lỗi 8: Dòng 20 — Dùng <input type="submit"> là cách làm cũ, nên chuyển sang thẻ <button> để dễ tùy biến.
+
+Sửa:
+
+<form action="#" method="POST">
+    <div>
+        <label for="full-name">Tên:</label>
+        <input type="text" id="full-name" name="full_name" placeholder="Nhập tên của bạn">
+    </div>
+
+    <div>
+        <label for="user-email">Email:</label>
+        <input type="email" id="user-email" name="user_email" placeholder="Email của bạn">
+    </div>
+
+    <div>
+        <label for="user-pass">Mật khẩu:</label>
+        <input type="password" id="user-pass" name="user_pass" placeholder="Mật khẩu">
+    </div>
+    <div>
+        <label for="confirm-pass">Nhập lại mật khẩu:</label>
+        <input type="password" id="confirm-pass" name="confirm_pass" placeholder="Nhập lại mật khẩu">
+    </div>
+
+    <div>
+        <label for="user-phone">Phone:</label>
+        <input type="tel" id="user-phone" name="user_phone" value="0901234567">
+    </div>
+
+    <div>
+        <label for="user-city">Thành phố:</label>
+        <select id="user-city" name="user_city">
+            <option value="hanoi">Hà Nội</option>
+            <option value="tphcm">TP.HCM</option>
+        </select>
+    </div>
+
+    <div>
+        <label>
+            <input type="checkbox" name="agree" id="agree" required> 
+            Tôi đồng ý điều khoản
+        </label>
+    </div>
+
+    <div>
+        <button type="submit">Gửi thông tin</button>
+    </div>
+</form>
+Nguồn tham khảo:07_forms_interactive.md: Mục Accessibility & Best Practices.
+
+Câu C2:
+
+1.Viết pattern regex:
+CMND/CCCD (Đúng 12 chữ số): pattern="[0-9]{12}"
+Số tài khoản (Từ 10 đến 15 chữ số): pattern="[0-9]{10,15}"
+Mã PIN (Đúng 6 chữ số): pattern="[0-9]{6}" (kết hợp với type="password")
+
+2.HTML5 validation đủ an toàn cho ứng dụng ngân hàng chưa? Tại sao?
+Không đủ an toàn
+Tại sao: HTML5 validation chỉ là Client-side validation. Kẻ tấn công hoặc người dùng có kỹ thuật có thể dễ dàng vượt qua bằng cách:
+Tắt JavaScript hoặc chỉnh sửa thuộc tính HTML trực tiếp qua công cụ Devtools
+Sử dụng các công cụ như Postman để gửi yêu cầu trực tiếp đến máy chủ mà không thông qua giao diện web
+
+3.So sánh giá trị giữa các trường: Ví dụ kiểm tra "Mật khẩu" và "Nhập lại mật khẩu" có khớp nhau không
+Kiểm tra tính duy nhất: Ví dụ kiểm tra xem Email hoặc Số tài khoản đã tồn tại trong cơ sở dữ liệu chưa
+Logic nghiệp vụ phức tạp: Ví dụ kiểm tra ngày đến phải sau ngày đi, hoặc tổng số tiền rút không được vượt quá số dư hiện tại
+
+4.2 rủi ro bảo mật nếu chỉ validate trên Frontend mà không validate Backend:
+Dữ liệu rác và tấn công Injection: Kẻ xấu có thể chèn các đoạn mã độc vào các ô nhập liệu để phá hoại hoặc lấy cắp dữ liệu từ máy chủ
+
+Sai lệch quy trình nghiệp vụ : Người dùng có thể lách luật để thực hiện các hành vi không cho phép, ví dụ như chuyển số tiền âm hoặc tạo tài khoản với thông tin không hợp lệ, gây tổn thất tài chính cho ngân hàng
+Nguồn tham khảo:07_forms_interactive.md: Mục HTML5 Validation Attributes & Best Practices
